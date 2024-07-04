@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "FPSProjectile.h"
+#include "FPSBombActor.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -45,6 +46,8 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	// Jump exists in the base class, we dont need our own function
 	EnhancedInputComponent->BindAction(Input_Jump, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 	EnhancedInputComponent->BindAction(Input_Fire, ETriggerEvent::Triggered, this, &AFPSCharacter::Fire);
+
+	EnhancedInputComponent->BindAction(Spawn_Bomb, ETriggerEvent::Triggered, this, &AFPSCharacter::SpawnBomb);
 
 	const APlayerController* PC = GetController<APlayerController>();
 	const ULocalPlayer* LP = PC->GetLocalPlayer();
@@ -115,6 +118,11 @@ void AFPSCharacter::Fire()
 
 	// Play Muzzle FX
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, GunMeshComponent, "Muzzle");
+}
+
+void AFPSCharacter::SpawnBomb()
+{
+	AFPSBombActor* MyBomb = GetWorld()->SpawnActor<AFPSBombActor>(BombClass, GetActorLocation(), GetActorRotation());
 }
 
 void AFPSCharacter::MoveInput(const FInputActionValue& InputValue)

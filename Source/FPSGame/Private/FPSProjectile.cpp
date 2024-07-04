@@ -55,7 +55,7 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 	// Only add impulse and destroy projectile if we hit a physics object
 	if ((OtherActor) && (OtherActor != this) && (OtherComp) && OtherComp->IsSimulatingPhysics())
 	{
-		float RandomIntensity = FMath::RandRange(200.0f, 500.0f);
+		float RandomIntensity = FMath::RandRange(RandomIntensityMin, RandomIntensityMax);
 
 		OtherComp->AddImpulseAtLocation(GetVelocity() * RandomIntensity, GetActorLocation());
 
@@ -75,6 +75,7 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 		if (MatInst)
 		{
 			MatInst->SetVectorParameterValue("Color", FLinearColor::MakeRandomColor());
+			MatInst->SetVectorParameterValue("Emissive Color", FLinearColor::MakeRandomColor());
 		}
 
 		Explode();

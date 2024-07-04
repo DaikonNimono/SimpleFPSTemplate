@@ -15,6 +15,7 @@ class UInputComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
 class AFPSProjectile;
+class AFPSBombActor;
 class USoundBase;
 class UAnimSequence;
 class UParticleSystem;
@@ -45,6 +46,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category= "Input")
 	UInputAction* Input_Fire;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* Spawn_Bomb;
+
 	/** Pawn mesh: 1st person view  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Mesh")
 	USkeletalMeshComponent* Mesh1PComponent;
@@ -70,6 +74,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="Projectile")
 	TSubclassOf<AFPSProjectile> ProjectileClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Bombs")
+	TSubclassOf<AFPSBombActor> BombClass;
+
 	/** Sound to play each time we fire */
 	UPROPERTY(EditDefaultsOnly, Category="Gameplay")
 	USoundBase* FireSound;
@@ -89,6 +96,8 @@ protected:
 	
 	/** Fires a projectile. */
 	void Fire();
+
+	void SpawnBomb();
 
 	void MoveInput(const FInputActionValue& InputValue);
 

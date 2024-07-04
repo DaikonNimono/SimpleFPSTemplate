@@ -30,6 +30,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Movement")
 	UParticleSystem* ExplosionFX;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	float RandomIntensityMin = 100.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	float RandomIntensityMax = 200.0f;
+
 	UFUNCTION()
 	void Explode();
 
